@@ -13,9 +13,23 @@ initialize = () => {
   });
   trafficLayer.setMap(map);
 
+  var markerOption = {
+    position: new naver.maps.LatLng(37.3595704, 127.105399),
+    map: map,
+    visible: false,
+  };
+  var current = new naver.maps.Marker(markerOption);
+
   if ("geolocation" in navigator) {
     navigator.geolocation.watchPosition((position) => {
-      console.log(map);
+      current.setPosition(
+        new naver.maps.LatLng(
+          position.coords.latitude,
+          position.coords.longitude
+        )
+      );
+      current.setVisible(true);
+
       if (setCurrentPosition)
         map.setCenter(
           new naver.maps.LatLng(
